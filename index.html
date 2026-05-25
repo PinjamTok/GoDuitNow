@@ -9,45 +9,28 @@
 <body>
     <div class="container">
         <div class="login-box">
-            <div class="logo">
-                <h1>💰 GoDuitNow</h1>
-                <p>Platform Pinjaman Online Terpercaya</p>
-            </div>
+            <h1>💰 GoDuitNow</h1>
+            <h2>Masuk ke Akaun Anda</h2>
 
-            <form id="loginForm" class="form-group">
-                <h2>Masuk ke Akaun Anda</h2>
-
+            <form id="loginForm">
                 <div class="form-field">
-                    <label for="phone">Nombor Telefon:</label>
-                    <input type="tel" id="phone" name="phone" placeholder="01234567890" required>
-                    <small>Contoh: 01234567890 (tanpa tanda +)</small>
+                    <label>Nombor Telefon:</label>
+                    <input type="tel" id="phone" placeholder="01234567890" required>
                 </div>
 
                 <div class="form-field">
-                    <label for="pin">PIN (4-6 digit):</label>
-                    <input type="password" id="pin" name="pin" placeholder="••••" maxlength="6" required>
+                    <label>PIN:</label>
+                    <input type="password" id="pin" placeholder="••••" maxlength="6" required>
                 </div>
 
                 <button type="submit" class="btn-primary">Masuk</button>
-
                 <div id="errorMessage" class="error-message"></div>
             </form>
 
-            <div class="divider">atau</div>
-
-            <p class="register-prompt">
-                Belum ada akaun? 
-                <a href="register.html" class="link">Daftar Sekarang</a>
-            </p>
+            <p>Belum ada akaun? <a href="register.html">Daftar di sini</a></p>
         </div>
     </div>
 
     <script src="app.js"></script>
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            login();
-        });
-    </script>
 </body>
 </html>
