@@ -12,7 +12,7 @@
             <h1>💰 GoDuitNow</h1>
             <h2>Daftar Akaun Baru</h2>
 
-            <form id="registerForm">
+            <form id="registerForm" onsubmit="event.preventDefault(); register();">
                 <div class="form-field">
                     <label>Nama Penuh:</label>
                     <input type="text" id="fullName" placeholder="Ahmad bin Mohamed" required>
@@ -43,8 +43,16 @@
                     <input type="password" id="confirmPin" placeholder="••••" maxlength="6" required>
                 </div>
 
+                <div class="form-field">
+                    <label>
+                        <input type="checkbox" id="terms" required>
+                        Setuju dengan Terma & Syarat
+                    </label>
+                </div>
+
                 <button type="submit" class="btn-primary">Daftar Sekarang</button>
-                <div id="message" class="error-message"></div>
+                <div id="errorMessage" class="error-message"></div>
+                <div id="successMessage" class="success-message"></div>
             </form>
 
             <p>Sudah ada akaun? <a href="index.html">Masuk di sini</a></p>
