@@ -12,7 +12,7 @@
             <h1>💰 GoDuitNow</h1>
             <h2>Masuk ke Akaun Anda</h2>
 
-            <form id="loginForm">
+            <form id="loginForm" onsubmit="event.preventDefault(); login();">
                 <div class="form-field">
                     <label>Nombor Telefon:</label>
                     <input type="tel" id="phone" placeholder="01234567890" required>
