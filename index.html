@@ -1,36 +1,365 @@
 <!DOCTYPE html>
 <html lang="ms">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GoDuitNow - Login</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WantKash 2026 | Dapatkan Pinjaman dengan Proses Mudah</title>
+
+    <!-- Meta Tags -->
+    <meta name="title" content="WantKash 2026 | Dapatkan Pinjaman dengan Proses Mudah">
+    <meta name="og:title" content="WantKash 2026 | Dapatkan Pinjaman dengan Proses Mudah">
+    <meta name="og:image" content="https://www.wantkash.com/share-card.png">
+    <meta name="description" content="Kami adalah syarikat berlesen dengan permit dari kerajaan Malaysia, menyediakan pakej pinjaman dengan kadar faedah yang sihat dan tempoh bayaran balik yang sesuai untuk menyelesaikan masalah kewangan anda tanpa kerisauan.">
+    <meta name="og:description" content="Kami adalah syarikat berlesen dengan permit dari kerajaan Malaysia, menyediakan pakej pinjaman dengan kadar faedah yang sihat dan tempoh bayaran balik yang sesuai untuk menyelesaikan masalah kewangan anda tanpa kerisauan.">
+    
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=1">
+    <link rel="icon" sizes="32x32" href="/favicon-32x32.png?v=1">
+    <link rel="icon" sizes="16x16" href="/favicon-16x16.png?v=1">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico?v=1">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="canonical" href="https://www.wantkash.com">
+
+    <!-- Styles -->
+    <style>
+        /* Modals & Popups */
+        #announcementModal .modal-content, 
+        #newsModal .modal-content { background-color: transparent; padding: 0; }
+        .modal-footer { background-color: transparent; }
+
+        /* Topbar & Navigation */
+        .topbar { height: var(--topbar-height); }
+        .lang-option { display: block; padding: .375rem .75rem; text-align: left; width: 100%; }
+        .lang-option:hover { color: rgb(var(--primary)); }
+        .lang-option.selected { background-color: rgb(var(--primary)); color: rgb(var(--primary-content)); }
+
+        /* Animations */
+        .hero-left { animation: heroLeftIn .6s ease forwards; }
+        @keyframes heroLeftIn { 0% { opacity: 0; transform: translate(-50px); } to { opacity: 1; transform: translate(0); } }
+        
+        .hero-right { animation: heroRightIn .8s ease forwards; }
+        @keyframes heroRightIn { 0% { opacity: 0; transform: scale(.8); } to { opacity: 1; transform: scale(1); } }
+        
+        .progress-bar { animation: progressWidth 2s ease 1s forwards; width: 0; }
+        @keyframes progressWidth { to { width: 92%; } }
+        
+        .floating-badge { animation: floatY 3s ease-in-out infinite; }
+        @keyframes floatY { 0%, to { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        
+        .fade-slide-enter-active, .fade-slide-leave-active { transition: all .4s ease; }
+        .fade-slide-enter-from { opacity: 0; transform: translateY(10px); }
+        .fade-slide-leave-to { opacity: 0; transform: translateY(5px); }
+
+        /* Components */
+        .feature-card:hover { transform: translateY(-10px); }
+        
+        /* Toast Notifications */
+        .toast-container { display: grid; gap: .875rem; left: 50%; max-width: 380px; padding: var(--gutter); position: fixed; transform: translate(-50%); width: 100%; }
+        .toast-container.top-center, .toast-container.top-left, .toast-container.top-right { top: calc(var(--gutter)*2.5); }
+        .toast-container.bottom-center, .toast-container.bottom-left, .toast-container.bottom-right { bottom: calc(var(--gutter)*2.5); }
+        
+        .toast { align-items: center; background-color: rgb(var(--scene-deep)); border-color: rgb(var(--scene-content)/.3); border-radius: .375rem; border-width: 1px; display: flex; font-size: .875rem; gap: .5rem; line-height: 1.25rem; padding: .75rem; text-align: left; width: 100%; box-shadow: 0 4px 6px -1px rgba(0,0,0,.1); }
+        
+        @media (min-width: 640px) {
+            .toast-container { gap: 1rem; max-width: 460px; }
+            .toast { font-size: 1rem; line-height: 1.5rem; padding: 1rem; }
+        }
+
+        /* Swipers & Sliders */
+        .slide-container { -ms-overflow-style: none; scroll-snap-type: x mandatory; scrollbar-width: none; }
+        .slide-container::-webkit-scrollbar { display: none; }
+        .slide-entry { scroll-snap-align: start; }
+        .slide-nav-btn { align-items: center; background-color: #0000004d; color: #fff; display: flex; font-size: 32px; height: 96px; justify-content: center; padding: 4px; position: absolute; top: 50%; transform: translateY(-50%); z-index: 2; }
+        .slide-nav-btn.left { border-radius: 0 8px 8px 0; left: 0; }
+        .slide-nav-btn.right { border-radius: 8px 0 0 8px; right: 0; }
+        .slide-nav-btn:disabled { cursor: not-allowed; opacity: .6; }
+        
+        .announcement-swiper { overflow: hidden; position: relative; }
+        .announcement-swiper-pagination { display: flex; gap: 8px; justify-content: center; width: 100%; z-index: 2; }
+        .announcement-swiper-pagination .swiper-pagination-bullet { background-color: rgba(var(--scene)/.4); border-radius: 50%; height: 8px; transition: all .3s ease; width: 8px; }
+        .announcement-swiper-pagination .swiper-pagination-bullet-active { background-color: rgb(var(--primary)); border-radius: 8px; }
+        
+        /* Inputs */
+        .phone-number-input { background-color: rgb(var(--scene)); border-radius: 0 var(--input-border-radius) var(--input-border-radius) 0; height: 100%; outline: 2px solid transparent; padding-right: var(--input-inline-padding); width: 100%; }
+        .phone-number-input::-webkit-inner-spin-button, .phone-number-input::-webkit-outer-spin-button { -webkit-appearance: none; appearance: none; }
+    </style>
+
+    <!-- External Scripts -->
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    <script>
+        window.OneSignalDeferred = window.OneSignalDeferred || [];
+        OneSignalDeferred.push(async function(OneSignal) {
+            await OneSignal.init({
+                appId: "99719e94-a9e7-45b6-b8a9-29733dde9275"
+            });
+        });
+    </script>
 </head>
+
 <body>
-    <div class="container">
-        <div class="login-box">
-            <h1>💰 GoDuitNow</h1>
-            <h2>Masuk ke Akaun Anda</h2>
+    <div id="__nuxt">
+        <!-- HEADER -->
+        <header class="topbar sticky top-0 z-10 bg-white shadow">
+            <div class="content-container flex justify-between items-center gap-1 h-full">
+                <a aria-current="page" href="/" class="router-link-active router-link-exact-active">
+                    <img src="/img/logo.png" alt="WantKash" class="h-8 sm:h-10">
+                </a>
+                <nav>
+                    <ul class="flex items-center gap-8 font-bold">
+                        <li class="hidden lg:block"><a href="/#personal-loan" class="hover:text-secondary flex items-center gap-2 leading-none text-sm">Pinjaman Peribadi</a></li>
+                        <li class="hidden lg:block"><a href="/#business-loan" class="hover:text-secondary flex items-center gap-2 leading-none text-sm">Pinjaman Perniagaan</a></li>
+                        <li class="hidden lg:block"><a href="/#how-it-works" class="hover:text-secondary flex items-center gap-2 leading-none text-sm">Cara Berfungsi</a></li>
+                        <li class="hidden lg:block"><a href="/#faq" class="hover:text-secondary flex items-center gap-2 leading-none text-sm">Soalan Lazim</a></li>
+                        <li class="hidden lg:block">
+                            <button class="bg-primary text-accent px-6 py-3 rounded-full font-bold text-sm hover:bg-[#2a433b] transition-all flex items-center justify-center gap-2 shadow-xl shadow-primary/20 group">
+                                Mohon Sekarang
+                            </button>
+                        </li>
+                        <li>
+                            <div class="w-fit">
+                                <button class="btn flex items-center gap-2 text-sm p-0 h-8">
+                                    <span>BM</span>
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
 
-            <form id="loginForm" onsubmit="event.preventDefault(); login();">
-                <div class="form-field">
-                    <label>Nombor Telefon:</label>
-                    <input type="tel" id="phone" placeholder="01234567890" required>
+        <!-- MAIN CONTENT -->
+        <div class="min-h-screen bg-white font-sans selection:bg-accent/50 selection:text-primary">
+            
+            <!-- Hero Section -->
+            <section class="relative pt-20 pb-20 overflow-hidden">
+                <div class="absolute -top-24 -right-24 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
+                <div class="absolute top-1/2 -left-24 w-64 h-64 bg-accent/20 rounded-full blur-3xl"></div>
+                
+                <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-[2]">
+                    <div class="hero-left">
+                        <div class="inline-flex items-center gap-2 bg-accent text-primary px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-6 border border-primary/10">
+                            Terpantas di Malaysia
+                        </div>
+                        <h1 class="text-[42px] md:text-7xl md:leading-[90px] font-extrabold text-[#1F4500] leading-tight mb-6">
+                            Dapatkan Pinjaman Diluluskan dalam <br>
+                            <span class="text-[#30CA00] italic">3 Minit</span>
+                        </h1>
+                        <p class="text-lg text-[#45556C] mb-8 max-w-lg leading-relaxed">
+                            Cepat, digital, dan selamat. Memberdayakan rakyat Malaysia dengan penyelesaian kewangan segera melalui pengesahan KYC berkuasa AI.
+                        </p>
+                        <div class="grid gap-2 mb-9">
+                            <label class="text-[#1F4500]">Nombor Telefon</label>
+                            <div class="relative flex input pr-0 items-center max-w-[386px] border border-primary">
+                                <div class="flex items-center gap-1"><span class="text-sm">+60</span></div>
+                                <div class="w-[1px] h-[1.625em] bg-subtle mx-[0.5em]"></div>
+                                <input type="tel" class="phone-number-input hide-controls" placeholder="126235463" pattern="\d*" inputmode="numeric" maxlength="10">
+                            </div>
+                        </div>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <button class="bg-primary text-accent px-8 py-4 rounded-2xl font-bold text-lg hover:bg-[#2a433b] transition-all flex items-center justify-center gap-2 shadow-xl shadow-primary/20 group">
+                                Mula Permohonan
+                            </button>
+                            <div class="flex items-center gap-3 px-4 py-2 border border-slate-200 rounded-2xl bg-white/50 backdrop-blur-sm">
+                                <div class="flex -space-x-3">
+                                    <img src="/img/user-1.png" alt="user" class="w-8 h-8 rounded-full border-2 border-white object-cover">
+                                    <img src="/img/user-2.png" alt="user" class="w-8 h-8 rounded-full border-2 border-white object-cover">
+                                    <img src="/img/user-3.png" alt="user" class="w-8 h-8 rounded-full border-2 border-white object-cover">
+                                </div>
+                                <p class="text-sm font-medium text-slate-700">Dipercayai oleh 50k+ pengguna</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero-right relative">
+                        <div class="relative z-[2] rounded-3xl overflow-hidden transform hover:rotate-0 transition-transform duration-500">
+                            <div class="bg-[#F0FFE7] w-full relative">
+                                <div class="pt-[85.36%]"></div>
+                                <img src="/img/hero-banner-2.png" class="absolute bottom-0 max-h-[90%] left-1/2 -translate-x-1/2">
+                            </div>
+                        </div>
+                        <div class="floating-badge absolute -top-10 -left-10 bg-white p-4 rounded-2xl shadow-xl flex items-center gap-3 z-20 border border-slate-100">
+                            <div class="w-10 h-10 bg-green-100 text-green-700 rounded-lg flex items-center justify-center">✔</div>
+                            <div>
+                                <p class="text-xs text-slate-500 font-medium">Jumlah Diluluskan</p>
+                                <p class="text-lg font-bold text-primary">RM 50,000</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </section>
 
-                <div class="form-field">
-                    <label>PIN:</label>
-                    <input type="password" id="pin" placeholder="••••" maxlength="6" required>
+            <!-- Features Section -->
+            <section class="py-24 bg-slate-50">
+                <div class="max-w-7xl mx-auto px-6">
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="feature-card bg-white p-10 rounded-[2rem] border border-slate-100 shadow-sm transition-all">
+                            <h3 class="text-2xl font-bold text-primary mb-4">100% Digital</h3>
+                            <p class="text-slate-500 leading-relaxed">Tiada kertas kerja, tiada barisan. Lengkapkan permohonan dari telefon anda bila-bila masa.</p>
+                        </div>
+                        <div class="feature-card bg-white p-10 rounded-[2rem] border border-slate-100 shadow-sm transition-all">
+                            <h3 class="text-2xl font-bold text-primary mb-4">KYC 3 Minit</h3>
+                            <p class="text-slate-500 leading-relaxed">Sistem berkuasa AI kami mengesahkan identiti anda serta-merta dengan MyKad dan selfie.</p>
+                        </div>
+                        <div class="feature-card bg-white p-10 rounded-[2rem] border border-slate-100 shadow-sm transition-all">
+                            <h3 class="text-2xl font-bold text-primary mb-4">Penyedia Berlesen</h3>
+                            <p class="text-slate-500 leading-relaxed">WantKash ialah penyedia perkhidmatan kewangan berdaftar yang mematuhi garis panduan BNM.</p>
+                        </div>
+                    </div>
                 </div>
+            </section>
 
-                <button type="submit" class="btn-primary">Masuk</button>
-                <div id="errorMessage" class="error-message"></div>
-            </form>
+            <!-- Calculator Section -->
+            <section id="personal-loan" class="py-24 bg-white">
+                <div class="max-w-7xl mx-auto px-6">
+                    <div class="text-center mb-16">
+                        <h2 class="text-4xl font-extrabold text-primary mb-4">Kira Bayaran Balik Anda</h2>
+                        <p class="text-slate-500 max-w-2xl mx-auto">Harga telus tanpa yuran tersembunyi. Lihat dengan tepat apa yang anda bayar sebelum memohon.</p>
+                    </div>
+                    <div class="grid lg:grid-cols-2 gap-12 bg-slate-50 p-4 md:p-12 rounded-3xl md:rounded-[2.5rem] border border-slate-100">
+                        <div class="space-y-12">
+                            <div class="space-y-6">
+                                <div class="flex justify-between items-end">
+                                    <label class="text-lg font-bold text-primary">Jumlah Pinjaman</label>
+                                    <span class="text-3xl font-extrabold text-primary">RM 10,000</span>
+                                </div>
+                                <input value="10000" type="range" min="1000" max="100000" step="500" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-primary">
+                                <div class="flex justify-between text-xs font-bold text-slate-400 uppercase tracking-tighter">
+                                    <span>RM 1,000</span><span>RM 100,000</span>
+                                </div>
+                            </div>
+                            <div class="space-y-6">
+                                <div class="flex justify-between items-end">
+                                    <label class="text-lg font-bold text-primary">Tempoh (Bulan)</label>
+                                    <span class="text-3xl font-extrabold text-primary">12 Bulan</span>
+                                </div>
+                                <div class="grid grid-cols-4 gap-3">
+                                    <button type="button" class="bg-white text-slate-600 hover:bg-slate-100 py-3 rounded-xl font-bold transition-all">6m</button>
+                                    <button type="button" class="bg-primary text-accent shadow-lg py-3 rounded-xl font-bold transition-all">12m</button>
+                                    <button type="button" class="bg-white text-slate-600 hover:bg-slate-100 py-3 rounded-xl font-bold transition-all">24m</button>
+                                    <button type="button" class="bg-white text-slate-600 hover:bg-slate-100 py-3 rounded-xl font-bold transition-all">36m</button>
+                                    <button type="button" class="bg-white text-slate-600 hover:bg-slate-100 py-3 rounded-xl font-bold transition-all">48m</button>
+                                    <button type="button" class="bg-white text-slate-600 hover:bg-slate-100 py-3 rounded-xl font-bold transition-all">60m</button>
+                                    <button type="button" class="bg-white text-slate-600 hover:bg-slate-100 py-3 rounded-xl font-bold transition-all">72m</button>
+                                    <button type="button" class="bg-white text-slate-600 hover:bg-slate-100 py-3 rounded-xl font-bold transition-all">84m</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-primary rounded-3xl p-8 text-white relative overflow-hidden">
+                            <h3 class="text-xl font-bold mb-8 flex items-center gap-2">
+                                <div class="w-2 h-8 bg-accent rounded-full"></div> Keputusan Anggaran
+                            </h3>
+                            <div class="space-y-8 relative z-[2]">
+                                <div class="pb-8 border-b border-white/10">
+                                    <p class="text-white/60 mb-2">Bayaran Bulanan</p>
+                                    <p class="text-5xl font-extrabold text-accent">RM 869.88</p>
+                                </div>
+                                <div class="grid grid-cols-2 gap-8">
+                                    <div>
+                                        <p class="text-white/60 text-sm mb-1">Jumlah Bayaran Balik</p>
+                                        <p class="text-xl font-bold font-mono">RM 10438.61</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-white/60 text-sm mb-1">Kadar Faedah</p>
+                                        <p class="text-xl font-bold text-accent">8.00% p.a.</p>
+                                    </div>
+                                </div>
+                                <button class="w-full bg-accent hover:bg-[#ece27b] text-primary py-5 rounded-2xl font-bold text-lg shadow-xl transition-all mt-4">Mohon untuk jumlah ini</button>
+                                <p class="text-xs text-center text-white/40 italic">*Kadar akhir mungkin berbeza berdasarkan penilaian kredit.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-            <p>Belum ada akaun? <a href="register.html">Daftar di sini</a></p>
+            <!-- Additional Sections (Business, How it Works, FAQ) -->
+            <!-- ... Struktur di sini juga disamakan dan dipermudahkan bacaannya ... -->
+            
+            <!-- FAQ Section -->
+            <section id="faq" class="py-24 bg-white">
+                <div class="max-w-3xl mx-auto px-6">
+                    <div class="text-center mb-16">
+                        <h2 class="text-4xl font-extrabold text-primary mb-4">Soalan Lazim</h2>
+                        <p class="text-slate-500">Semua yang anda perlu tahu tentang WantKash.</p>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="border-primary bg-primary/5 rounded-2xl border transition-all">
+                            <button type="button" class="w-full px-6 py-6 text-left flex justify-between items-center">
+                                <span class="text-primary font-bold text-lg">Siapa yang boleh memohon pinjaman WantKash?</span>
+                            </button>
+                            <div class="px-6 pb-6 text-slate-600 leading-relaxed">Warganegara Malaysia berumur 18-60 dengan pendapatan stabil dan MyKad yang sah layak memohon.</div>
+                        </div>
+                        <div class="border-slate-100 rounded-2xl border transition-all">
+                            <button type="button" class="w-full px-6 py-6 text-left flex justify-between items-center">
+                                <span class="text-slate-700 font-bold text-lg">Berapa lama kelulusan mengambil masa?</span>
+                            </button>
+                            <div style="display:none;" class="px-6 pb-6 text-slate-600 leading-relaxed">Dengan KYC berkuasa AI kami, kelulusan awal hanya 3 minit.</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
-    </div>
 
-    <script src="app.js"></script>
+        <!-- FOOTER -->
+        <footer class="bg-slate-50 pt-24 pb-12 border-t border-slate-100">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                    <div class="md:col-span-1">
+                        <img src="/img/logo.png" alt="WantKash" class="h-8 sm:h-10 mb-6">
+                        <p class="text-slate-500 text-sm leading-relaxed mb-6">Memberdayakan rakyat Malaysia melalui teknologi kewangan inovatif dan amalan pinjaman yang telus.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-primary mb-6 uppercase tracking-wider text-xs">Produk</h4>
+                        <ul class="space-y-4 text-sm text-slate-500">
+                            <li><a href="/#personal-loan" class="hover:text-primary">Pembiayaan Peribadi</a></li>
+                            <li><a href="/#business-loan" class="hover:text-primary">Pinjaman Perniagaan PKS</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-primary mb-6 uppercase tracking-wider text-xs">Sokongan</h4>
+                        <ul class="space-y-4 text-sm text-slate-500">
+                            <li><a href="/privacy-policy" class="hover:text-primary">Dasar Privasi</a></li>
+                            <li><a href="/terms-and-conditions" class="hover:text-primary">Terma Perkhidmatan</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-primary mb-6 uppercase tracking-wider text-xs">Hubungi Kami</h4>
+                        <ul class="space-y-4 text-sm text-slate-500">
+                            <li><a href="/cdn-cgi/l/email-protection" class="__cf_email__">hello@wantkash.my</a></li>
+                            <li>47620 Subang Jaya, Selangor, Malaysia</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="pt-8 border-t border-slate-200 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-400 font-medium">
+                    <p>© 2026 WantKash Malaysia (Dimiliki oleh WantKash Fintech Sdn Bhd). Hak cipta terpelihara.</p>
+                    <div class="flex gap-6">
+                        <span>No. Lesen: WL7721/14/01-12/280226</span>
+                        <span>No. Permit: WP7721/14/01-12/280226</span>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- Nuxt Configurations & Scripts -->
+    <script id="unhead:payload" type="application/json">
+        {"title":"WantKash 2026 | Dapatkan Pinjaman dengan Proses Mudah"}
+    </script>
+    
+    <script>
+        window.__NUXT__ = {};
+        window.__NUXT__.config = {
+            public: {
+                BRAND: "WantKash",
+                MAIN_DOMAIN: "https://www.wantkash.com",
+                MERCHANT: "wantkash",
+                CURRENCY: "RM",
+                DIAL_CODE: "60",
+                SUPPORT_PHONE_NO: "03-8007 1118",
+                SUPPORT_EMAIL: "hello@wantkash.my",
+                MERCHANT_SETTINGS: { hasIDType: false, SKIP_NAME_IC: false, showPackageBeforeApply: false, HAS_KYC_FREEZE: false, paymentWarnModal: true },
+                ENV: "production",
+                i18n: { defaultLocale: "ms", defaultDirection: "ltr" }
+            }
+        };
+    </script>
 </body>
 </html>
